@@ -48,14 +48,24 @@ namespace Services
             return total;
         }
 
-        public int CountRoutes(Node start, Node end, int maxStops)
+        public int CountRoutes(Node start, Node end, int maxStops = int.MaxValue, int maxCost = int.MaxValue)
         {
+            if (maxCost == int.MaxValue && maxStops == int.MaxValue)
+            {
+                throw new Exception("Please, select a max value or max cost or i'll be in a overflow :(");
+            }
+
             using(var alg = new YRSAlgorithm(this._graph))
             {
                 alg.SetMaxStops(maxStops);
-                alg.SetMaxCost(int.MaxValue);
+                alg.SetMaxCost(maxCost);
                 return alg.NumberOfRoutes(start, end);
             }
+        }
+
+        internal object CountRoutesArriving(Node c)
+        {
+            throw new NotImplementedException();
         }
 
         public void Dispose()

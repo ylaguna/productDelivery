@@ -42,18 +42,30 @@ namespace ProductDelivery
 
                 var output4 = service.CostOfTheRoute(B, D, F, E);
                 System.Console.WriteLine($"Output #4: {output4}");
-                
+
                 var output5 = service.CostOfTheRoute(F, C);
                 System.Console.WriteLine($"Output #5: {output5}");
 
-                var output7 = service.CountRoutes(B, A, maxStops: 5);
+                var output6 = service.CountRoutesArriving(C);
+                System.Console.WriteLine($"Output #6: {output6}");
+
+                var output7 = service.CountRoutes(B, A, maxStops : 5);
                 System.Console.WriteLine($"Output #7: {output7}");
-                
+
+                var output8 = service.CountRoutes(A, A, maxStops : 3);
+                System.Console.WriteLine($"Output #8: {output8}");
+
                 var output9 = service.ShortestRoute(A, E);
                 System.Console.WriteLine($"Output #9: {output9}");
 
                 var output10 = service.ShortestRoute(C, E);
                 System.Console.WriteLine($"Output #10: {output10}");
+
+                var output11 = service.CountRoutes(A, B, maxCost : 39);
+                System.Console.WriteLine($"Output #11: {output11}");
+
+                var output12 = service.CountRoutes(E, D, maxCost : 59);
+                System.Console.WriteLine($"Output #12: {output12}");
             }
         }
     }
