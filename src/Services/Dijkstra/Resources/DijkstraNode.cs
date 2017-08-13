@@ -16,7 +16,7 @@ namespace Services.Dijkstra.Resources
             this.Name = name;
             this.Status = NodeStatus.Temporary;
             this.Predecessor = null;
-            this.PathLegth = Infinity; 
+            this.PathLegth = Infinity;
         }
 
         public void MakePermanent()

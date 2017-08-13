@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using Models;
 using Services.Dijkstra.Resources;
-using System.Linq;
 
 namespace Services.Dijkstra
 {
@@ -14,9 +14,9 @@ namespace Services.Dijkstra
             foreach(var node in graph.Nodes)
             {
                 dijkstraGraph.Nodes.Add(new DijkstraNode(node.Name));
-                
+
                 dijkstraGraph.Edges.AddRange(node.Routes
-                            .Select(route => new DijkstraEdge(route.Start.Name, route.End.Name, route.Cost)).ToList());
+                    .Select(route => new DijkstraEdge(route.Start.Name, route.End.Name, route.Cost)).ToList());
             }
 
             return dijkstraGraph;

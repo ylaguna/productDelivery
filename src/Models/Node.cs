@@ -2,12 +2,12 @@ using System.Collections.Generic;
 
 namespace Models
 {
-    public class Node 
+    public class Node
     {
         public char Name { get; set; }
 
         public List<Edge> Routes { get; set; }
-        
+
         public Node(char name)
         {
             this.Name = name;

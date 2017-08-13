@@ -1,7 +1,7 @@
-using Models;
-using Services.Interfaces;
-using Services.Dijkstra.Resources;
 using System.Linq;
+using Models;
+using Services.Dijkstra.Resources;
+using Services.Interfaces;
 
 namespace Services.Dijkstra
 {
@@ -17,10 +17,10 @@ namespace Services.Dijkstra
         public int CheapestCost(Node start, Node end)
         {
             var startNode = _graph.GetNodeByName(start.Name);
-            var endNode   = _graph.GetNodeByName(end.Name);
+            var endNode = _graph.GetNodeByName(end.Name);
             startNode.PathLegth = 0;
-            
-            while( endNode.IsTemporary() && (_graph.Nodes.Any(node => node.IsTemporary() && !node.IsInfinity())))
+
+            while (endNode.IsTemporary() && (_graph.Nodes.Any(node => node.IsTemporary() && !node.IsInfinity())))
             {
 
                 var smallestNode = _graph.GetSmallestTemporaryNode();
@@ -28,7 +28,6 @@ namespace Services.Dijkstra
                 smallestNode.MakePermanent();
                 UpdateNodeAdjacents(smallestNode);
             }
-
 
             return endNode.PathLegth;
         }
@@ -41,14 +40,14 @@ namespace Services.Dijkstra
         private void UpdateNodeAdjacents(DijkstraNode currentNode)
         {
             var adjacentRoutes = _graph.GetAdjacentRoutes(currentNode);
-        
+
             foreach(var route in adjacentRoutes)
             {
                 var adjacentNode = _graph.GetNodeByName(route.EndName);
                 var routeCost = currentNode.PathLegth + route.Cost;
-                if ( routeCost < adjacentNode.PathLegth )
+                if (routeCost < adjacentNode.PathLegth)
                 {
-                    adjacentNode.PathLegth = routeCost; 
+                    adjacentNode.PathLegth = routeCost;
                 }
             }
         }

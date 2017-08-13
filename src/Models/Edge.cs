@@ -13,5 +13,5 @@ namespace Models
             this.Cost = cost;
         }
     }
-    
+
 }

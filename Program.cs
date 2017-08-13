@@ -26,7 +26,7 @@ namespace ProductDelivery
             F.AddRoute(E, 9);
             B.AddRoute(D, 3);
             F.AddRoute(A, 3);
-            
+
             var graph = new Graph(A, B, C, D, E, F);
             var short1 = new Dijkstra(graph).CheapestCost(A, D);
             var short2 = new Dijkstra(graph).CheapestCost(D, E);

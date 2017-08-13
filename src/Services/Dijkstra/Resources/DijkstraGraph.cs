@@ -22,9 +22,9 @@ namespace Services.Dijkstra.Resources
         public List<DijkstraEdge> GetAdjacentRoutes(DijkstraNode node)
         {
             var adjacents = Edges
-                            .Where(edge => edge.StartName.Equals(node.Name))
-                            .ToList();
-            
+                .Where(edge => edge.StartName.Equals(node.Name))
+                .ToList();
+
             return adjacents;
         }
 
