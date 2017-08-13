@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Models;
 using Services.Dijkstra;
+using Services.Resources;
 using Services.YRS;
 
 namespace Services
@@ -19,7 +20,15 @@ namespace Services
 
         public string CostOfTheRoute(params Node[] nodes)
         {
-            var total = this.GetCostOfTheRoute(nodes);
+            var filter = new CostOfTheRouteFilter
+            {
+                cheapestCostOfTheRoute = this._cheapestCostOfTheRoute,
+                graph = this._graph,
+                nodes = nodes
+            };
+
+            var total = GetCostOfTheRoute.Execute(filter);
+
             return total == int.MaxValue ? "NO SUCH ROUTE" : total.ToString();
         }
 
@@ -36,38 +45,6 @@ namespace Services
         public string ShortestRoute(params Node[] nodes)
         {
             return this.GetShortestRoute(nodes).ToString();
-        }
-
-        private int GetCostOfTheRoute(params Node[] nodes)
-        {
-            int total = 0;
-            var before = nodes.First();
-            foreach(var node in nodes.Skip(1))
-            {
-                int cost;
-                if(this._cheapestCostOfTheRoute)
-                {
-                    using(var alg = new DijkstraAlgorithm(this._graph))
-                    {
-                        cost = alg.CheapestCost(before, node);
-                    }
-
-                }
-                else
-                {
-                    var pathToNode = before.Routes.FirstOrDefault(path => path.End.Name.Equals(node.Name));
-                    
-                    if( pathToNode == null )
-                        return int.MaxValue;
-
-                    cost = pathToNode.Cost;
-                }
-                
-                total += cost;
-                before = node;
-            }
-
-            return total;
         }
 
         private int GetShortestRoute(params Node[] nodes)
