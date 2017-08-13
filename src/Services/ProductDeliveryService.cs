@@ -63,9 +63,9 @@ namespace Services
             }
         }
 
-        internal object CountRoutesArriving(Node c)
+        public int CountRoutesArriving(Node client)
         {
-            throw new NotImplementedException();
+            return this._graph.Nodes.Sum(node => node.Routes.Any(path => path.End.Name.Equals(client.Name)) ? 1 : 0);
         }
 
         public void Dispose()
