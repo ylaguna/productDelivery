@@ -14,7 +14,7 @@ namespace Domain.Models
             this.Routes = new List<Edge>();
         }
 
-        public void AddRoute(Node destination, int cost)
+        public virtual void AddRoute(Node destination, int cost)
         {
             var path = new Edge(this, destination, cost);
             this.Routes.Add(path);

@@ -5,7 +5,7 @@ namespace Domain.Models
 {
     public class Graph
     {
-        public List<Node> Nodes { get; set; }
+        public virtual List<Node> Nodes { get; set; }
 
         public Graph(params Node[] nodes)
         {
