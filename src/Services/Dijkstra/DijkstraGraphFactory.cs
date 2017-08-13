@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Domain.Models;
-using Domain.Services.Dijkstra.Resources;
+using Models;
+using Services.Dijkstra.Resources;
 using System.Linq;
 
-namespace Domain.Services.Dijkstra
+namespace Services.Dijkstra
 {
     internal static class DijkstraGraphFactory
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Domain.Models
+namespace Models
 {
     public class Node 
     {

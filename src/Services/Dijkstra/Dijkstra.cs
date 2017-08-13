@@ -1,9 +1,9 @@
-using Domain.Models;
-using Domain.Services.Interfaces;
-using Domain.Services.Dijkstra.Resources;
+using Models;
+using Services.Interfaces;
+using Services.Dijkstra.Resources;
 using System.Linq;
 
-namespace Domain.Services.Dijkstra
+namespace Services.Dijkstra
 {
     public class Dijkstra : IGraphAlgorithm
     {

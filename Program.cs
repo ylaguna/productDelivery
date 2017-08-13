@@ -1,6 +1,6 @@
 ﻿using System;
-using Domain.Models;
-using Domain.Services.Dijkstra;
+using Models;
+using Services.Dijkstra;
 
 namespace ProductDelivery
 {

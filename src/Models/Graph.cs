@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Domain.Models
+namespace Models
 {
     public class Graph
     {

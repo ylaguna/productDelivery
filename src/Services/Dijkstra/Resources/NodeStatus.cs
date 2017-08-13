@@ -1,4 +1,4 @@
-namespace Domain.Services.Dijkstra.Resources
+namespace Services.Dijkstra.Resources
 {
     internal enum NodeStatus
     {

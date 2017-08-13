@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Domain.Services.Dijkstra.Resources
+namespace Services.Dijkstra.Resources
 {
     internal class DijkstraGraph
     {

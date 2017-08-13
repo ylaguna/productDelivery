@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Domain.Services.Dijkstra.Resources
+namespace Services.Dijkstra.Resources
 {
     internal class DijkstraNode
     {

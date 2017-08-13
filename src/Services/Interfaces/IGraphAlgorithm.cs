@@ -1,6 +1,6 @@
-using Domain.Models;
+using Models;
 
-namespace Domain.Services.Interfaces
+namespace Services.Interfaces
 {
     public interface IGraphAlgorithm
     {
