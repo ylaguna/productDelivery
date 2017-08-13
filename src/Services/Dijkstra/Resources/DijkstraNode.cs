@@ -8,6 +8,7 @@ namespace Services.Dijkstra.Resources
 
         public char Name { get; set; }
         public int PathLegth { get; set; }
+        public int PathCost { get; set; }
         public virtual DijkstraNode Predecessor { get; set; }
         public NodeStatus Status { get; set; }
 
@@ -17,6 +18,7 @@ namespace Services.Dijkstra.Resources
             this.Status = NodeStatus.Temporary;
             this.Predecessor = null;
             this.PathLegth = Infinity;
+            this.PathCost = Infinity;
         }
 
         public void MakePermanent()
@@ -31,7 +33,7 @@ namespace Services.Dijkstra.Resources
 
         public bool IsInfinity()
         {
-            return this.PathLegth.Equals(Infinity);
+            return this.PathCost.Equals(Infinity);
         }
     }
 

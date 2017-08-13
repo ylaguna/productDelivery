@@ -14,7 +14,12 @@ namespace Services.Dijkstra.Resources
         public List<DijkstraNode> Nodes { get; set; }
         public List<DijkstraEdge> Edges { get; set; }
 
-        public DijkstraNode GetSmallestTemporaryNode()
+        public DijkstraNode GetSmallestCostTemporaryNode()
+        {
+            return Nodes.Where(c => c.IsTemporary()).OrderBy(node => node.PathCost).First();
+        }
+
+        public DijkstraNode GetSmallestLengthTemporaryNode()
         {
             return Nodes.Where(c => c.IsTemporary()).OrderBy(node => node.PathLegth).First();
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Models;
+using Services;
 using Services.Dijkstra;
 
 namespace ProductDelivery
@@ -28,10 +29,29 @@ namespace ProductDelivery
             F.AddRoute(A, 3);
 
             var graph = new Graph(A, B, C, D, E, F);
-            var short1 = new Dijkstra(graph).CheapestCost(A, D);
-            var short2 = new Dijkstra(graph).CheapestCost(D, E);
-            System.Console.WriteLine(short1);
-            System.Console.WriteLine(short2);
+            using(var service = new ProductDeliveryService(graph))
+            {
+                var output1 = service.CostOfTheRoute(A, D, E);
+                System.Console.WriteLine($"Output #1: {output1}");
+
+                var output2 = service.CostOfTheRoute(A, F, E);
+                System.Console.WriteLine($"Output #2: {output2}");
+
+                var output3 = service.CostOfTheRoute(E, C, B);
+                System.Console.WriteLine($"Output #3: {output3}");
+
+                var output4 = service.CostOfTheRoute(B, D, F, E);
+                System.Console.WriteLine($"Output #4: {output4}");
+                
+                var output5 = service.CostOfTheRoute(F, C);
+                System.Console.WriteLine($"Output #5: {output5}");
+                
+                var output9 = service.ShortestRoute(A, E);
+                System.Console.WriteLine($"Output #9: {output9}");
+
+                var output10 = service.ShortestRoute(C, E);
+                System.Console.WriteLine($"Output #10: {output10}");
+            }
         }
     }
 }
