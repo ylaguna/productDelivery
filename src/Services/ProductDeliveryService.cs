@@ -2,10 +2,11 @@ using System;
 using System.Linq;
 using Models;
 using Services.Dijkstra;
+using Services.YRS;
 
 namespace Services
 {
-    public class ProductDeliveryService : IDisposable
+    internal class ProductDeliveryService : IDisposable
     {
         private Graph _graph;
 
@@ -45,6 +46,16 @@ namespace Services
             }
 
             return total;
+        }
+
+        public int CountRoutes(Node start, Node end, int maxStops)
+        {
+            using(var alg = new YRSAlgorithm(this._graph))
+            {
+                alg.SetMaxStops(maxStops);
+                alg.SetMaxCost(int.MaxValue);
+                return alg.NumberOfRoutes(start, end);
+            }
         }
 
         public void Dispose()

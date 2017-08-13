@@ -45,6 +45,9 @@ namespace ProductDelivery
                 
                 var output5 = service.CostOfTheRoute(F, C);
                 System.Console.WriteLine($"Output #5: {output5}");
+
+                var output7 = service.CountRoutes(B, A, maxStops: 5);
+                System.Console.WriteLine($"Output #7: {output7}");
                 
                 var output9 = service.ShortestRoute(A, E);
                 System.Console.WriteLine($"Output #9: {output9}");

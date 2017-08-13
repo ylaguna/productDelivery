@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Models
 {
@@ -14,11 +15,12 @@ namespace Models
             this.Routes = new List<Edge>();
         }
 
-        public virtual void AddRoute(Node destination, int cost)
+        public void AddRoute(Node destination, int cost)
         {
             var path = new Edge(this, destination, cost);
             this.Routes.Add(path);
         }
+
     }
 
 }
