@@ -4,7 +4,7 @@ namespace Services.Dijkstra.Resources
 {
     internal class DijkstraNode
     {
-        private static readonly int Infinity = 99999;
+        private static readonly int Infinity = int.MaxValue;
 
         public char Name { get; set; }
         public int PathLegth { get; set; }

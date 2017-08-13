@@ -9,29 +9,68 @@ namespace Services
     internal class ProductDeliveryService : IDisposable
     {
         private Graph _graph;
+        public bool _cheapestCostOfTheRoute;
 
         public ProductDeliveryService(Graph graph)
         {
             this._graph = graph;
+            this._cheapestCostOfTheRoute = false;
         }
 
-        public int CostOfTheRoute(params Node[] nodes)
+        public string CostOfTheRoute(params Node[] nodes)
+        {
+            var total = this.GetCostOfTheRoute(nodes);
+            return total == int.MaxValue ? "NO SUCH ROUTE" : total.ToString();
+        }
+
+        public string CountRoutesArriving(Node client)
+        {
+            return this.GetCountRoutesArriving(client).ToString();
+        }
+
+        public string CountRoutes(Node start, Node end, int maxStops = int.MaxValue, int maxCost = int.MaxValue)
+        {
+            return this.GetCountRoutes(start, end, maxStops, maxCost).ToString();
+        }
+
+        public string ShortestRoute(params Node[] nodes)
+        {
+            return this.GetShortestRoute(nodes).ToString();
+        }
+
+        private int GetCostOfTheRoute(params Node[] nodes)
         {
             int total = 0;
             var before = nodes.First();
-            foreach(var node in nodes)
+            foreach(var node in nodes.Skip(1))
             {
-                using(var alg = new DijkstraAlgorithm(this._graph))
+                int cost;
+                if(this._cheapestCostOfTheRoute)
                 {
-                    total += alg.CheapestCost(before, node);
-                }
+                    using(var alg = new DijkstraAlgorithm(this._graph))
+                    {
+                        cost = alg.CheapestCost(before, node);
+                    }
 
+                }
+                else
+                {
+                    var pathToNode = before.Routes.FirstOrDefault(path => path.End.Name.Equals(node.Name));
+                    
+                    if( pathToNode == null )
+                        return int.MaxValue;
+
+                    cost = pathToNode.Cost;
+                }
+                
+                total += cost;
                 before = node;
             }
 
             return total;
         }
-        public int ShortestRoute(params Node[] nodes)
+
+        private int GetShortestRoute(params Node[] nodes)
         {
             int total = 0;
             var before = nodes.First();
@@ -48,7 +87,7 @@ namespace Services
             return total;
         }
 
-        public int CountRoutes(Node start, Node end, int maxStops = int.MaxValue, int maxCost = int.MaxValue)
+        private int GetCountRoutes(Node start, Node end, int maxStops = int.MaxValue, int maxCost = int.MaxValue)
         {
             if (maxCost == int.MaxValue && maxStops == int.MaxValue)
             {
@@ -63,7 +102,7 @@ namespace Services
             }
         }
 
-        public int CountRoutesArriving(Node client)
+        private int GetCountRoutesArriving(Node client)
         {
             return this._graph.Nodes.Sum(node => node.Routes.Any(path => path.End.Name.Equals(client.Name)) ? 1 : 0);
         }
