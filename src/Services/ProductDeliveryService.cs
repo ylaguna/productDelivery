@@ -20,13 +20,7 @@ namespace Services
 
         public string CostOfTheRoute(params Node[] nodes)
         {
-            var filter = new CostOfTheRouteFilter
-            {
-                cheapestCostOfTheRoute = this._cheapestCostOfTheRoute,
-                graph = this._graph,
-                nodes = nodes
-            };
-
+            var filter = new CostOfTheRouteFilter(this._graph, nodes, this._cheapestCostOfTheRoute);
             var total = GetCostOfTheRoute.Execute(filter);
 
             return total == int.MaxValue ? "NO SUCH ROUTE" : total.ToString();
@@ -34,7 +28,8 @@ namespace Services
 
         public string CountRoutesArriving(Node client)
         {
-            return this.GetCountRoutesArriving(client).ToString();
+            var filter = new RoutesArrivingFilter(this._graph, client);
+            return GetCountRoutesArriving.Execute(filter).ToString();
         }
 
         public string CountRoutes(Node start, Node end, int maxStops = int.MaxValue, int maxCost = int.MaxValue)
@@ -79,10 +74,7 @@ namespace Services
             }
         }
 
-        private int GetCountRoutesArriving(Node client)
-        {
-            return this._graph.Nodes.Sum(node => node.Routes.Any(path => path.End.Name.Equals(client.Name)) ? 1 : 0);
-        }
+        
 
         public void Dispose()
         {
