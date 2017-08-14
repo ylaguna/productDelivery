@@ -34,33 +34,16 @@ namespace Services
 
         public string CountRoutes(Node start, Node end, int maxStops = int.MaxValue, int maxCost = int.MaxValue)
         {
-            return this.GetCountRoutes(start, end, maxStops, maxCost).ToString();
+            var filter = new CountRoutesFilter(this._graph, start, end, maxStops, maxCost);
+            return GetCountRoutes.Execute(filter).ToString();
         }
 
         public string ShortestRoute(params Node[] nodes)
         {
             var filter = new ShortestRouteFilter(this._graph, nodes);
             return GetShortestRoute.Execute(filter).ToString();
-        }
-
+        }     
         
-        private int GetCountRoutes(Node start, Node end, int maxStops = int.MaxValue, int maxCost = int.MaxValue)
-        {
-            if (maxCost == int.MaxValue && maxStops == int.MaxValue)
-            {
-                throw new Exception("Please, select a max value or max cost or i'll be in a overflow :(");
-            }
-
-            using(var alg = new YRSAlgorithm(this._graph))
-            {
-                alg.SetMaxStops(maxStops);
-                alg.SetMaxCost(maxCost);
-                return alg.NumberOfRoutes(start, end);
-            }
-        }
-
-        
-
         public void Dispose()
         {
             GC.SuppressFinalize(this);
