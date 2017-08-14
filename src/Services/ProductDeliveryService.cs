@@ -32,18 +32,30 @@ namespace Services
             return GetCountRoutesArriving.Execute(filter).ToString();
         }
 
-        public string CountRoutes(Node start, Node end, int maxStops = int.MaxValue, int maxCost = int.MaxValue)
-        {
-            var filter = new CountRoutesFilter(this._graph, start, end, maxStops, maxCost);
-            return GetCountRoutes.Execute(filter).ToString();
-        }
-
         public string ShortestRoute(params Node[] nodes)
         {
             var filter = new ShortestRouteFilter(this._graph, nodes);
             return GetShortestRoute.Execute(filter).ToString();
         }     
         
+        public string CountRoutesMaxStops(Node start, Node end, int maxStops)
+        {
+            var filter = CountRoutesFilter.MaxStops(this._graph, start, end, maxStops);
+            return GetCountRoutes.Execute(filter).ToString();
+        }
+
+        public string CountRoutesMaxCost(Node start, Node end, int maxCost)
+        {
+            var filter = CountRoutesFilter.MaxCost(this._graph, start, end, maxCost);
+            return GetCountRoutes.Execute(filter).ToString();
+        }
+
+        public string CountRoutesExactlyStops(Node start, Node end, int exactlyStops)
+        {
+            var filter = CountRoutesFilter.ExactlyStops(this._graph, start, end, exactlyStops);
+            return GetCountRoutes.Execute(filter).ToString();
+        }
+
         public void Dispose()
         {
             GC.SuppressFinalize(this);

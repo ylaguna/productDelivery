@@ -11,6 +11,7 @@ namespace Services.YRS
     {
         private int _maxCost { get; set; }
         private int _maxStops { get; set; }
+        private int? _exactlyStops { get; set; }
         private Graph _graph { get; set; }
 
         private List<YRSRoute> _validRoutes { get; set; }
@@ -20,6 +21,7 @@ namespace Services.YRS
         {
             this._maxCost = 0;
             this._maxStops = 0;
+            this._exactlyStops = null;
             this._graph = graph;
 
             _validRoutes = new List<YRSRoute>();
@@ -38,7 +40,7 @@ namespace Services.YRS
                 if (isValid(route))
                 {
                     var actualStop = route.Paths.Last().End;
-                    if (actualStop.Name == end.Name)
+                    if (this.ShouldAdd(route, end))
                     {
                         _validRoutes.Add(route);
                     }
@@ -67,6 +69,21 @@ namespace Services.YRS
         public void SetMaxStops(int value)
         {
             this._maxStops = value;
+        }
+
+        public void SetExactlyStops(int? value)
+        {
+            this._exactlyStops = value;
+        }
+
+        private bool ShouldAdd(YRSRoute route, Node end)
+        {
+            var actualStop = route.Paths.Last().End;
+
+            var _equalCondition = actualStop.Name == end.Name; 
+            var _exactlyCondition = this._exactlyStops == null || route.Paths.Count == this._exactlyStops.Value;
+
+            return _equalCondition && _exactlyCondition;
         }
 
         private bool isValid(YRSRoute route)

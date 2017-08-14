@@ -18,6 +18,8 @@ namespace Services
             {
                 alg.SetMaxStops(filter.maxStops);
                 alg.SetMaxCost(filter.maxCost);
+                alg.SetExactlyStops(filter.exactlyStops);
+
                 return alg.NumberOfRoutes(filter.start, filter.end);
             }
         }
