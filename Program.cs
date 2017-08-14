@@ -49,10 +49,10 @@ namespace ProductDelivery
                 var output6 = service.CountRoutesArriving(C);
                 System.Console.WriteLine($"Output #6: {output6}");
 
-                var output7 = service.CountRoutes(B, A, maxStops : 5);
+                var output7 = service.CountRoutesMaxStops(B, A, maxStops : 5);
                 System.Console.WriteLine($"Output #7: {output7}");
 
-                var output8 = service.CountRoutes(A, A, maxStops : 3);
+                var output8 = service.CountRoutesExactlyStops(A, A, exactlyStops : 3);
                 System.Console.WriteLine($"Output #8: {output8}");
 
                 var output9 = service.ShortestRoute(A, E);
@@ -61,10 +61,10 @@ namespace ProductDelivery
                 var output10 = service.ShortestRoute(C, E);
                 System.Console.WriteLine($"Output #10: {output10}");
 
-                var output11 = service.CountRoutes(A, B, maxCost : 39);
+                var output11 = service.CountRoutesMaxCost(A, B, maxCost : 39);
                 System.Console.WriteLine($"Output #11: {output11}");
 
-                var output12 = service.CountRoutes(E, D, maxCost : 59);
+                var output12 = service.CountRoutesMaxCost(E, D, maxCost : 59);
                 System.Console.WriteLine($"Output #12: {output12}");
             }
         }

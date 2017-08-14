@@ -7,6 +7,7 @@ namespace Services.Interfaces
     {
         void SetMaxStops(int value);
         void SetMaxCost(int value);
+        void SetExactlyStops(int? value);
         int NumberOfRoutes(Node start, Node end);
     }
 }

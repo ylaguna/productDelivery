@@ -9,14 +9,40 @@ namespace Services.Resources
         public Node end;
         public int maxStops;
         public int maxCost;
+        public int? exactlyStops;
 
-        public CountRoutesFilter(Graph graph, Node start, Node end, int maxStops, int maxCost)
+        private CountRoutesFilter(Graph graph, Node start, Node end)
         {
             this.graph = graph;
             this.start = start;
             this.end = end;
-            this.maxCost = maxCost;
-            this.maxStops = maxStops;
+            this.maxStops = int.MaxValue;
+            this.maxCost = int.MaxValue;
+            this.exactlyStops = null;
+        }        
+
+        public static CountRoutesFilter MaxCost(Graph graph, Node start, Node end, int value)
+        {
+            var filter = new CountRoutesFilter(graph, start, end);
+            filter.maxCost = value;
+
+            return filter;
+        }
+
+        public static CountRoutesFilter MaxStops(Graph graph, Node start, Node end, int value)
+        {
+            var filter = new CountRoutesFilter(graph, start, end);
+            filter.maxStops = value;
+
+            return filter;
+        }
+
+        public static CountRoutesFilter ExactlyStops(Graph graph, Node start, Node end, int value)
+        {
+            var filter = new CountRoutesFilter(graph, start, end);
+            filter.exactlyStops = value;
+            filter.maxStops = value;
+            return filter;
         }
     }
 }
