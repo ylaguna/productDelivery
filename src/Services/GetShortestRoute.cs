@@ -1,5 +1,6 @@
 using System.Linq;
 using Services.Dijkstra;
+using Services.Interfaces;
 using Services.Resources;
 
 namespace Services
@@ -12,7 +13,7 @@ namespace Services
             var before = filter.nodes.First();
             foreach(var node in filter.nodes.Skip(1))
             {
-                using(var alg = new DijkstraAlgorithm(filter.graph))
+                using(IShortestPathAlgorithm alg = AlgorithmFactory.ShortestPathAlgorithm(filter.graph))
                 {
                     total += alg.ShortestPathCost(before, node);
                 }

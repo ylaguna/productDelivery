@@ -6,7 +6,7 @@ using Services.Interfaces;
 
 namespace Services.Dijkstra
 {
-    public class DijkstraAlgorithm : IGraphAlgorithm
+    public class DijkstraAlgorithm : IShortestPathAlgorithm
     {
         private DijkstraGraph _graph;
 
