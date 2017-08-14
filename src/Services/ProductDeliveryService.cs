@@ -39,26 +39,11 @@ namespace Services
 
         public string ShortestRoute(params Node[] nodes)
         {
-            return this.GetShortestRoute(nodes).ToString();
+            var filter = new ShortestRouteFilter(this._graph, nodes);
+            return GetShortestRoute.Execute(filter).ToString();
         }
 
-        private int GetShortestRoute(params Node[] nodes)
-        {
-            int total = 0;
-            var before = nodes.First();
-            foreach(var node in nodes)
-            {
-                using(var alg = new DijkstraAlgorithm(this._graph))
-                {
-                    total += alg.ShortestPathCost(before, node);
-                }
-
-                before = node;
-            }
-
-            return total;
-        }
-
+        
         private int GetCountRoutes(Node start, Node end, int maxStops = int.MaxValue, int maxCost = int.MaxValue)
         {
             if (maxCost == int.MaxValue && maxStops == int.MaxValue)
