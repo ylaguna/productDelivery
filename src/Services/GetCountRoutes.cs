@@ -1,7 +1,6 @@
 using System;
-using Models;
+using Services.Interfaces;
 using Services.Resources;
-using Services.YRS;
 
 namespace Services
 {
@@ -15,7 +14,7 @@ namespace Services
                 throw new Exception("Please, select a max value or max cost or i'll be in a overflow :(");
             }
 
-            using(var alg = new YRSAlgorithm(filter.graph))
+            using(IRouteSearchAlgorithm alg = AlgorithmFactory.RouteSearchAlgorithm(filter.graph))
             {
                 alg.SetMaxStops(filter.maxStops);
                 alg.SetMaxCost(filter.maxCost);
