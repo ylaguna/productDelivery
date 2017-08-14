@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Models;
 using Services.Dijkstra;
+using Services.Resources;
 using Services.YRS;
 
 namespace Services
@@ -9,65 +10,40 @@ namespace Services
     internal class ProductDeliveryService : IDisposable
     {
         private Graph _graph;
+        public bool _cheapestCostOfTheRoute;
 
         public ProductDeliveryService(Graph graph)
         {
             this._graph = graph;
+            this._cheapestCostOfTheRoute = false;
         }
 
-        public int CostOfTheRoute(params Node[] nodes)
+        public string CostOfTheRoute(params Node[] nodes)
         {
-            int total = 0;
-            var before = nodes.First();
-            foreach(var node in nodes)
-            {
-                using(var alg = new DijkstraAlgorithm(this._graph))
-                {
-                    total += alg.CheapestCost(before, node);
-                }
+            var filter = new CostOfTheRouteFilter(this._graph, nodes, this._cheapestCostOfTheRoute);
+            var total = GetCostOfTheRoute.Execute(filter);
 
-                before = node;
-            }
-
-            return total;
+            return total == int.MaxValue ? "NO SUCH ROUTE" : total.ToString();
         }
-        public int ShortestRoute(params Node[] nodes)
+
+        public string CountRoutesArriving(Node client)
         {
-            int total = 0;
-            var before = nodes.First();
-            foreach(var node in nodes)
-            {
-                using(var alg = new DijkstraAlgorithm(this._graph))
-                {
-                    total += alg.ShortestPathCost(before, node);
-                }
-
-                before = node;
-            }
-
-            return total;
+            var filter = new RoutesArrivingFilter(this._graph, client);
+            return GetCountRoutesArriving.Execute(filter).ToString();
         }
 
-        public int CountRoutes(Node start, Node end, int maxStops = int.MaxValue, int maxCost = int.MaxValue)
+        public string CountRoutes(Node start, Node end, int maxStops = int.MaxValue, int maxCost = int.MaxValue)
         {
-            if (maxCost == int.MaxValue && maxStops == int.MaxValue)
-            {
-                throw new Exception("Please, select a max value or max cost or i'll be in a overflow :(");
-            }
-
-            using(var alg = new YRSAlgorithm(this._graph))
-            {
-                alg.SetMaxStops(maxStops);
-                alg.SetMaxCost(maxCost);
-                return alg.NumberOfRoutes(start, end);
-            }
+            var filter = new CountRoutesFilter(this._graph, start, end, maxStops, maxCost);
+            return GetCountRoutes.Execute(filter).ToString();
         }
 
-        public int CountRoutesArriving(Node client)
+        public string ShortestRoute(params Node[] nodes)
         {
-            return this._graph.Nodes.Sum(node => node.Routes.Any(path => path.End.Name.Equals(client.Name)) ? 1 : 0);
-        }
-
+            var filter = new ShortestRouteFilter(this._graph, nodes);
+            return GetShortestRoute.Execute(filter).ToString();
+        }     
+        
         public void Dispose()
         {
             GC.SuppressFinalize(this);
