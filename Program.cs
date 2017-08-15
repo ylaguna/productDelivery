@@ -24,6 +24,11 @@ namespace ProductDelivery
 
                 using(var service = new ProductDeliveryService(graph))
                 {
+
+                    // Use this for find the best route in CostOfTheRoute, 
+                    //  it is not the exercice intention but can find better routes using Dijkstra algorithm
+                    //service._cheapestCostOfTheRoute = true; 
+
                     var output1 = service.CostOfTheRoute(A, D, E);
                     System.Console.WriteLine($"Output #1: {output1}");
 
@@ -61,7 +66,7 @@ namespace ProductDelivery
                     System.Console.WriteLine($"Output #12: {output12}");
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Console.WriteLine($"OOoops!  => {e.Message}");
             }
